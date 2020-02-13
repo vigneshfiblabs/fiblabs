@@ -16,3 +16,4 @@ channel_data.each do |channel|
       channel.shows.create(show_data)
 end
 
+User.create(:email => "vignesh@fiblabs.com")

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users
   resources :favourites
+  post 'add_favourite' => "shows#add_favourite"
   resources :shows
   resources :channels
   root 'shows#index'

@@ -4,8 +4,9 @@ class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
   def index
-    @shows = Show.all
+    @shows = Show.where("name LIKE ?", "%#{params[:show]}%")
   end
+  
 
   # GET /shows/1
   # GET /shows/1.json
@@ -35,6 +36,14 @@ class ShowsController < ApplicationController
         format.json { render json: @show.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_favourite
+    Favourite.create(:show_id  => params[:id], :user_id => 1)
+    show_detail = Show.find_by(:id => params[:id])
+    user_email = User.find_by(:id => 1).email
+    FavouriteMailer.delay(:run_at => show_detail.timing - 30.minutes).send_notification(user_email, show_detail.name, show_detail.timing)
+    redirect_to '/shows'
   end
 
   # PATCH/PUT /shows/1
