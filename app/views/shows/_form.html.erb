@@ -1,0 +1,32 @@
+<%= form_with(model: show, local: true) do |form| %>
+  <% if show.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
+
+      <ul>
+      <% show.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :show_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :timing %>
+    <%= form.datetime_select :timing, id: :show_timing %>
+  </div>
+
+  <div class="field">
+    <%= form.label :channel_id %>
+    <%= form.number_field :channel_id, id: :show_channel_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
